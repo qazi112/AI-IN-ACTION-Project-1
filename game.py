@@ -3,11 +3,13 @@ import os
 import random
 
 SPRITE_SCALING = 0.5
+# i have decided to keep each block of width = 70 and height = 70
+# now if user want 3 * 3 board , we will simply do, 3*70 = 210 size 
 
 SCREEN_WIDTH = 350
 SCREEN_HEIGHT = 350
 SCREEN_TITLE = "Sprite Bouncing Coins"
-
+GRID_GAP = 70
 MOVEMENT_SPEED = 5
 
 
@@ -92,18 +94,18 @@ class MyGame(arcade.Window):
                                             self.background)
         # Drawing Lines
         
-        for x in range(0, SCREEN_WIDTH+1, 70):
+        for x in range(0, SCREEN_WIDTH+1, GRID_GAP):
             arcade.draw_line(x, 0, x, SCREEN_HEIGHT, arcade.color.WHITE_SMOKE, 3)
 
-        for x in range(0,SCREEN_HEIGHT+1, 70):
+        for x in range(0,SCREEN_HEIGHT+1, GRID_GAP):
             arcade.draw_line(0, x, SCREEN_WIDTH, x, arcade.color.WHITE_SMOKE, 3)
         self.coin_list.draw()
         # Draw all the sprites.
         # self.wall_list.draw()
         # self.coin_list.draw()
         myText = "Arsalan"
-        for rows in range(0,SCREEN_WIDTH,70):
-            for columns in range(0,SCREEN_HEIGHT,70):
+        for rows in range(0,SCREEN_WIDTH,GRID_GAP):
+            for columns in range(0,SCREEN_HEIGHT,GRID_GAP):
                 print(arcade.draw_text(myText,rows,columns,arcade.color.AERO_BLUE,bold=True))
         
     def on_update(self, delta_time):
