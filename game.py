@@ -2,15 +2,17 @@ import arcade
 import os
 import random
 
-SPRITE_SCALING = 0.5
+SPRITE_SCALING = 0.13
+COIN_SCALE = 0.13
+COIN_START_SCALE = 35 # like x= 35 and y = 35 of starting
 # i have decided to keep each block of width = 70 and height = 70
 # now if user want 3 * 3 board , we will simply do, 3*70 = 210 size 
 
 # We can go till 10 X 10
 # Grid is made using lines, not actual Grid 
 
-SCREEN_WIDTH = 350
-SCREEN_HEIGHT = 350
+SCREEN_WIDTH = 700
+SCREEN_HEIGHT = 700
 SCREEN_TITLE = "Sprite Bouncing Coins"
 GRID_GAP = 70
 MOVEMENT_SPEED = 5
@@ -31,62 +33,56 @@ class MyGame(arcade.Window):
         # self.coin_list = arcade.SpriteList()
         self.background = arcade.load_texture("back.jpg")
         self.coin_list = arcade.SpriteList()
-        # -- Set up the walls
 
-        # Create horizontal rows of boxes
-        # for x in range(32, SCREEN_WIDTH, 64):
-        #     # Bottom edge
-        #     wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-        #     wall.center_x = x
-        #     wall.center_y = 32
-        #     self.wall_list.append(wall)
+        
+        # Here is First snail creaeted at x = 35 , y =35
+        coin = arcade.Sprite("snailone.png")
 
-        #     # Top edge
-        #     wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-        #     wall.center_x = x
-        #     wall.center_y = SCREEN_HEIGHT - 32
-        #     self.wall_list.append(wall)
 
-        # # Create vertical columns of boxes
-        # for y in range(96, SCREEN_HEIGHT, 64):
-        #     # Left
-        #     wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-        #     wall.center_x = 32
-        #     wall.center_y = y
-        #     self.wall_list.append(wall)
-
-        #     # Right
-        #     wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-        #     wall.center_x = SCREEN_WIDTH - 32
-        #     wall.center_y = y
-        #     self.wall_list.append(wall)
-
-        # # Create boxes in the middle
-        # for x in range(128, SCREEN_WIDTH, 196):
-        #     for y in range(128, SCREEN_HEIGHT, 196):
-        #         wall = arcade.Sprite(":resources:images/tiles/boxCrate_double.png", SPRITE_SCALING)
-        #         wall.center_x = x
-        #         wall.center_y = y
-        #         # wall.angle = 45
-        #         self.wall_list.append(wall)
-
-        # Create coins
-        # for i in range(10):
-        coin = arcade.Sprite("tick.png",scale=0.1)
-
-        coin.center_x = 10
-        coin.center_y = 10
-        print(coin.height)
+        """ x = 35 , y = 35 
+            and add 70 to loop through
+        """
+        coin.center_x = COIN_START_SCALE
+        coin.center_y = COIN_START_SCALE
+        coin.scale = 0.13
+        print(coin.bottom)
+        print(coin.left)
+        
         print(coin.width)
-        print(coin._get_width())
-            # while coin.change_x == 0 and coin.change_y == 0:
-            #     coin.change_x = random.randrange(-4, 5)
-            #     coin.change_y = random.randrange(-4, 5)
+        print(coin.height)
+        #  First snail done
 
         self.coin_list.append(coin)
+        for x in range(35,SCREEN_WIDTH,70):
+            coin = arcade.Sprite("snailone.png")
+            coin.scale = 0.13
+            coin.center_x = x
+            coin.center_y = 35
+            self.coin_list.append(coin)
+
+        for x in range(SCREEN_WIDTH-35 , 0, -70):
+            coin = arcade.Sprite("snailtwo.png",mirrored=True)
+            coin.scale = 0.13
+            coin.center_x = x
+            coin.center_y = SCREEN_HEIGHT - 35
+            self.coin_list.append(coin)
+
+
 
         # Set the background color
         arcade.set_background_color(arcade.color.AMAZON)
+        
+        # list for all possible x places for sprite    
+        list_for_x = []
+        for x in range(COIN_START_SCALE,SCREEN_WIDTH,70):
+            list_for_x.append(x)
+        print(list_for_x)
+
+        # list for all possible y places for sprite    
+        list_for_y = []
+        for y in range(COIN_START_SCALE,SCREEN_HEIGHT,70):
+            list_for_y.append(y)
+        print(list_for_y)        
 
     def on_draw(self):
         """
@@ -109,16 +105,16 @@ class MyGame(arcade.Window):
         # Draw all the sprites.
         # self.wall_list.draw()
         # self.coin_list.draw()
-        myText = "Arsalan"
-        for rows in range(0,SCREEN_WIDTH,GRID_GAP):
-            for columns in range(0,SCREEN_HEIGHT,GRID_GAP):
-                arcade.draw_text(myText,rows,columns,arcade.color.AERO_BLUE,bold=True)
+        # myText = "Arsalan"
+        # for rows in range(0,SCREEN_WIDTH,GRID_GAP):
+        #     for columns in range(0,SCREEN_HEIGHT,GRID_GAP):
+        #         arcade.draw_text(myText,rows,columns,arcade.color.AERO_BLUE,bold=True)
         
     def on_update(self, delta_time):
         """ Movement and game logic """
-        self.coin_list[0].left = 0
-        self.coin_list[0].bottom = 0
-        self.coin_list.update()
+        # self.coin_list[0].left = 0
+        # self.coin_list[0].bottom = 0
+        # self.coin_list.update()
         # for coin in self.coin_list:
 
         #     coin.center_x += coin.change_x
