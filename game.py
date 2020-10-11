@@ -6,6 +6,9 @@ SPRITE_SCALING = 0.5
 # i have decided to keep each block of width = 70 and height = 70
 # now if user want 3 * 3 board , we will simply do, 3*70 = 210 size 
 
+# We can go till 10 X 10
+# Grid is made using lines, not actual Grid 
+
 SCREEN_WIDTH = 350
 SCREEN_HEIGHT = 350
 SCREEN_TITLE = "Sprite Bouncing Coins"
@@ -69,9 +72,12 @@ class MyGame(arcade.Window):
 
         # Create coins
         # for i in range(10):
-        coin = arcade.Sprite("tick.png", 0.4,)
-        coin.center_x = 500
-        coin.center_y = 500
+        coin = arcade.Sprite("tick.png",scale=0.1)
+
+        coin.center_x = 10
+        coin.center_y = 10
+        print(coin.height)
+        print(coin.width)
         print(coin._get_width())
             # while coin.change_x == 0 and coin.change_y == 0:
             #     coin.change_x = random.randrange(-4, 5)
@@ -106,11 +112,13 @@ class MyGame(arcade.Window):
         myText = "Arsalan"
         for rows in range(0,SCREEN_WIDTH,GRID_GAP):
             for columns in range(0,SCREEN_HEIGHT,GRID_GAP):
-                print(arcade.draw_text(myText,rows,columns,arcade.color.AERO_BLUE,bold=True))
+                arcade.draw_text(myText,rows,columns,arcade.color.AERO_BLUE,bold=True)
         
     def on_update(self, delta_time):
         """ Movement and game logic """
-        pass
+        self.coin_list[0].left = 0
+        self.coin_list[0].bottom = 0
+        self.coin_list.update()
         # for coin in self.coin_list:
 
         #     coin.center_x += coin.change_x
