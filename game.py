@@ -11,8 +11,8 @@ COIN_START_SCALE = 35 # like x= 35 and y = 35 of starting
 # We can go till 10 X 10
 # Grid is made using lines, not actual Grid 
 
-SCREEN_WIDTH = 700
-SCREEN_HEIGHT = 700
+SCREEN_WIDTH = 350
+SCREEN_HEIGHT = 350
 SCREEN_TITLE = "Sprite Bouncing Coins"
 GRID_GAP = 70
 MOVEMENT_SPEED = 5
@@ -24,6 +24,7 @@ class MyGame(arcade.Window):
         super().__init__(width, height, title)
         self.background = None
         self.coin_list = None
+        self.splash_list = None
         # self.wall_list = None
 
     def setup(self):
@@ -33,45 +34,56 @@ class MyGame(arcade.Window):
         # self.coin_list = arcade.SpriteList()
         self.background = arcade.load_texture("back.jpg")
         self.coin_list = arcade.SpriteList()
-
+        self.splash_list = arcade.SpriteList()
         
         # Here is First snail creaeted at x = 35 , y =35
         coin = arcade.Sprite("snailone.png")
-
+        # Creating a splash
+        splash = arcade.Sprite("splash.png")
 
         """ x = 35 , y = 35 
             and add 70 to loop through
         """
         coin.center_x = COIN_START_SCALE
         coin.center_y = COIN_START_SCALE
+        splash.center_x = COIN_START_SCALE
+        splash.center_y = COIN_START_SCALE
+        splash.scale = 0.131
         coin.scale = 0.13
         print(coin.bottom)
         print(coin.left)
         
         print(coin.width)
         print(coin.height)
+        self.coin_list.append(coin)
+        self.splash_list.append(splash)
+
+        
         #  First snail done
 
-        self.coin_list.append(coin)
-        for x in range(35,SCREEN_WIDTH,70):
-            coin = arcade.Sprite("snailone.png")
-            coin.scale = 0.13
-            coin.center_x = x
-            coin.center_y = 35
-            self.coin_list.append(coin)
 
-        for x in range(SCREEN_WIDTH-35 , 0, -70):
-            coin = arcade.Sprite("snailtwo.png",mirrored=True)
-            coin.scale = 0.13
-            coin.center_x = x
-            coin.center_y = SCREEN_HEIGHT - 35
-            self.coin_list.append(coin)
+        # # Generate Sprite in loop in x axis
+        # self.coin_list.append(coin)
+        # for x in range(35,SCREEN_WIDTH,70):
+        #     coin = arcade.Sprite("snailone.png")
+        #     coin.scale = 0.13
+        #     coin.center_x = x
+        #     coin.center_y = 35
+        #     self.coin_list.append(coin)
+        # # Generate Sprite in loop in y axis
+        # for x in range(SCREEN_WIDTH-35 , 0, -70):
+        #     coin = arcade.Sprite("snailtwo.png",mirrored=True)
+        #     coin.scale = 0.13
+        #     coin.center_x = x
+        #     coin.center_y = SCREEN_HEIGHT - 35
+        #     self.coin_list.append(coin)
 
 
 
         # Set the background color
         arcade.set_background_color(arcade.color.AMAZON)
         
+
         # list for all possible x places for sprite    
         list_for_x = []
         for x in range(COIN_START_SCALE,SCREEN_WIDTH,70):
@@ -82,7 +94,15 @@ class MyGame(arcade.Window):
         list_for_y = []
         for y in range(COIN_START_SCALE,SCREEN_HEIGHT,70):
             list_for_y.append(y)
-        print(list_for_y)        
+        print(list_for_y)      
+
+        # Make random moves
+        # coin = arcade.Sprite("snailone.png")
+        # coin.center_x = random.choice(list_for_x)
+        # coin.center_y = random.choice(list_for_y)
+
+        # coin.scale = 0.13
+        # self.coin_list.append(coin)
 
     def on_draw(self):
         """
@@ -101,7 +121,9 @@ class MyGame(arcade.Window):
 
         for x in range(0,SCREEN_HEIGHT+1, GRID_GAP):
             arcade.draw_line(0, x, SCREEN_WIDTH, x, arcade.color.WHITE_SMOKE, 3)
+        self.splash_list.draw()
         self.coin_list.draw()
+        
         # Draw all the sprites.
         # self.wall_list.draw()
         # self.coin_list.draw()
