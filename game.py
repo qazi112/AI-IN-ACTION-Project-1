@@ -10,9 +10,10 @@ COIN_START_SCALE = 35 # like x= 35 and y = 35 of starting
 
 # We can go till 10 X 10
 # Grid is made using lines, not actual Grid 
-
-SCREEN_WIDTH = 350
-SCREEN_HEIGHT = 350
+MAIN_SCREEN_WIDTH = 600
+MAIN_SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 210
+SCREEN_HEIGHT = 210
 SCREEN_TITLE = "Sprite Bouncing Coins"
 GRID_GAP = 70
 MOVEMENT_SPEED = 5
