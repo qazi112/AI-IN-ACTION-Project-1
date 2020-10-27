@@ -1,4 +1,4 @@
-
+# This is our main file
 import arcade
 SPRITE_SNAIL = 0.114
 SPRITE_SCALING_COIN = .25
