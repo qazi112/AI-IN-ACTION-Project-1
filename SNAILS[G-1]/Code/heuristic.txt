@@ -1,0 +1,31 @@
+"""
+Heuristic()
+===========
+The main purpose of heuristic function is to indicate, whether a particular move is in
+the right direction or not. Due to the big size of board, it is not feasible to generate 
+all possible children of the board and figure out the best move for AI agent. Therefore,
+‘heursitic()’ function predicts the best possible move without processing all possibilities.
+---------------------------------------------------------------------------------------------
+
+Implementation
+===============
+This function implements three main techniques to figure out the best possible move.
+For this purpose, a variable “winningChances” is initialized. These techniques will add
+some weight to this variable if the following conditions are fulfilled.
+
+1) First Condition: Calculate the number of visited boxes by AI Agent and add them to
+the variable ‘winnigChances’.
+
+2) Second Condition: Calculate the number of empty boxes around the current position
+of AI Agent. If the agent is going towards a direction where there are a lot of empty
+boxes, then it means it is going in the right direction. The number of empty boxes will
+be added to the variable ‘winnigChances’
+
+3) Third Condition: Check whether Agent’s current position is in the central area of
+board. If it is so, then a constant e.g. 10 will be added to the variable ‘winnigChances’.
+The reason behind is that central area increases the chances to cover more empty
+boxes. Here center is not a single point but it is a range of boxes around center box
+if the current position of agent is in that range it means it is going toward center.
+
+"""
+
